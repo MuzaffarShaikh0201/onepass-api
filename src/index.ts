@@ -7,10 +7,9 @@ import express, { Request, Response } from "express";
 import authRouter from "./routes/auth";
 import { envConfig } from "./core/envConfig";
 import coloredLogsMiddleware from "./middlewares/logsMiddleware";
-import logger from "./utils/logger";
 
 const app = express();
-const port = envConfig.PORT || 3000;
+const port = envConfig.PORT || 3001;
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -37,12 +36,11 @@ app.use(
 
 // Default route
 app.get("/", (req: Request, res: Response) => {
-	logger.info(`${req.ip} - /`);
 	res.status(200).json({ message: "Hello World!" });
 });
 
+// Healthcheck route
 app.get("/healthz", async (req: Request, res: Response) => {
-	logger.info(`${req.ip} - /healthz`);
 	res.status(200).json({ message: "Hello World!" });
 });
 
@@ -50,5 +48,5 @@ app.get("/healthz", async (req: Request, res: Response) => {
 app.use("/auth", authRouter);
 
 app.listen(port, () => {
-	console.log(`HTTPS Server running on http://localhost:${port}`);
+	console.log(`Example app listening on port ${port}!`);
 });
