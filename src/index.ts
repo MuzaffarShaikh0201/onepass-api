@@ -15,6 +15,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(coloredLogsMiddleware);
 app.use(bodyParser.urlencoded({ extended: true }));
+// Serving static files
+app.use(express.static("public"));
 
 app.use(
 	Cors({
