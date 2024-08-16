@@ -1,3 +1,5 @@
+import { PublicKeyCredentialCreationOptionsJSON } from "@simplewebauthn/server/script/deps";
+
 export type UserType = {
 	id: number;
 	username: string;
@@ -16,4 +18,11 @@ export type PasskeyType = {
 	created_at: Date;
 	last_used: Date;
 	user_id: number;
+};
+
+export type UserRegistrationOptionsType = {
+	id: number;
+	options: PublicKeyCredentialCreationOptionsJSON;
+	user_id: number;
+	created_at: Date;
 };

@@ -9,7 +9,6 @@ router.get(
 	"/generate-registration-options",
 	async (req: Request, res: Response) => {
 		logger.info("/generate-registration-options execution started");
-		console.log(req.hostname);
 		const username = req.query.username as string;
 
 		return await generateRegistrationOptionsHandler(res, username);

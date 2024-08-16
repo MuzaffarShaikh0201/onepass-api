@@ -7,6 +7,7 @@ import {
 	getPasskeysByUserId,
 	getUserByUsername,
 	insertUser,
+	insertUserRegistrationOptions,
 } from "../supabase/queries";
 import logger from "../utils/logger";
 
@@ -51,6 +52,13 @@ export const generateRegistrationOptionsHandler = async (
 				})),
 			});
 
+			const [error] = await insertUserRegistrationOptions(user.id, options);
+
+			if (error) {
+				logger.error(error);
+				return res.status(500).json({ message: "Something went wrong!" });
+			}
+
 			logger.info("Registration options generated successfully");
 			return res.status(201).json(options);
 		} else {
@@ -84,6 +92,14 @@ export const generateRegistrationOptionsHandler = async (
 					type: "public-key",
 				})),
 			});
+
+			const [insertUserRegistrationOptionsError] =
+				await insertUserRegistrationOptions(user.id, options);
+
+			if (insertUserRegistrationOptionsError) {
+				logger.error(insertUserRegistrationOptionsError);
+				return res.status(500).json({ message: "Something went wrong!" });
+			}
 
 			logger.info("Registration options generated successfully");
 			return res.status(201).json(options);
