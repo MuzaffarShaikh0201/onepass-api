@@ -85,8 +85,12 @@ export const generateRegistrationOptionsHandler = async (
 				rpID,
 				userID: new Uint8Array(user.id.toString().split(",").map(Number)),
 				userName: username,
-				attestationType: "indirect",
-				authenticatorSelection: { userVerification: "required" },
+				attestationType: "none",
+				authenticatorSelection: {
+					residentKey: "preferred",
+					userVerification: "preferred",
+					authenticatorAttachment: "platform",
+				},
 				excludeCredentials: passkeys?.map((pk) => ({
 					id: pk.cred_id,
 					type: "public-key",
